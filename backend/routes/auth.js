@@ -9,6 +9,7 @@ const rolesPermitidos = ["Comprador", "Vendedor", "Ambos"];
 
 
 const ADMIN_REGISTER_CODE = "PekasiolPeluco";
+const TEMP_INVITE_CODE = "INICIO-2026";
 
 function randomCodePart() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -64,6 +65,22 @@ router.post("/register", async (req, res) => {
     }
 
     const codeClean = String(verifyCode || "").trim().toUpperCase();
+    if (codeClean === TEMP_INVITE_CODE) {
+      const cardCode = await generateCardCode(curso);
+      const isAdmin = adminCode === ADMIN_REGISTER_CODE ? 1 : 0;
+
+      const result = await run(
+        "INSERT INTO users (nombre, curso, rol, password, contacto, monedas, card_code, is_admin) VALUES (?, ?, ?, ?, ?, 50, ?, ?)",
+        [nombre.trim(), curso, rol, password, contacto.trim(), cardCode, isAdmin]
+      );
+
+      const user = await get(
+        "SELECT id, nombre, curso, rol, contacto, monedas, card_code, is_admin FROM users WHERE id = ?",
+        [result.id]
+      );
+
+      return res.json({ user });
+    }
     const invite = await get(
       "SELECT code, used FROM invite_codes WHERE code = ?",
       [codeClean]
