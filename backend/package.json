@@ -1,0 +1,14 @@
+﻿{
+  "name": "mercado-digital-backend",
+  "version": "1.0.0",
+  "description": "Backend simple para mercado digital escolar",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.3",
+    "sqlite3": "^5.1.7"
+  }
+}

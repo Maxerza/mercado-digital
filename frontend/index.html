@@ -1,0 +1,229 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mercado Digital Escolar</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    
+    <header class="topbar">
+      <div class="brand">
+        <h1>Mercado Digital</h1>
+        <p>I.E Avelino Saldarriaga</p>
+      </div>
+      <div class="user-info" id="userInfo">
+        <div id="userName">Invitado</div>
+        <div id="userCoins">Monedas: 0</div>
+        <div id="userCard">Tarjeta: -</div>
+        <div class="notif">
+          <button id="notifBtn" class="btn ghost" type="button" aria-label="Notificaciones">
+            <svg class="bell" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-6V11a7 7 0 1 0-14 0v5l-2 2v1h20v-1l-2-2Zm-2 1H7v-6a5 5 0 0 1 10 0v6Z"/>
+            </svg>
+          </button>
+          <span id="notifBadge" class="badge" hidden>0</span>
+          <div id="notifPanel" class="notif-panel" hidden>
+            <div class="notif-title">Últimas notificaciones</div>
+            <div id="notifList" class="list"></div>
+            <button id="notifClearBtn" class="btn ghost small" type="button">Borrar</button>
+          </div>
+        </div>
+        <button id="logoutBtn" class="btn ghost" hidden>Cerrar sesión</button>
+      </div>
+    </header>
+
+    <div id="toast" class="toast" hidden></div>
+    <div id="imageModal" class="modal" hidden>
+      <div class="modal-content">
+        <button id="modalClose" class="btn ghost" type="button">Cerrar</button>
+        <img id="modalImage" alt="Imagen ampliada" />
+      </div>
+    </div>
+    <div id="normsModal" class="modal" hidden>
+      <div class="modal-content modal-long">
+        <button id="normsClose" class="btn ghost" type="button">Cerrar</button>
+        <h3>Normas Institucionales (extracto)</h3>
+        <div class="modal-scroll">
+          <p><strong>Acuerdo:</strong> “Por la cual el Consejo Directivo aprueba y adopta ajustes al Manual de Convivencia Escolar de la Institución Educativa Avelino Saldarriaga para el año Lectivo 2025”.</p>
+          <p><strong>Marco jurídico:</strong> Constitución Política de Colombia; Ley 115 de 1994; Ley 715 de 2002; Decreto 1860 de 1994; Decreto 1075 de 2015; Ley 1620 de 2013 y Decreto 1965 de 2013; Ley 1618 de 2013 y Decreto 1421 de 2017; Ley 1482 de 2011; Ley 1752 de 2015; Ley 2025 de 2020; Decreto 1290 de 2009; Código de Infancia y Adolescencia; y demás normas relacionadas con convivencia escolar.</p>
+          <p><strong>Propósito del Manual:</strong> garantizar el respeto de los derechos humanos, sexuales y reproductivos, promover la convivencia escolar, la inclusión y la prevención de la violencia.</p>
+          <p><strong>Principios generales:</strong> respeto a la dignidad, aceptación del otro, comunicación, participación, justicia restaurativa, prevención y cuidado del entorno.</p>
+          <p><strong>Derechos y deberes:</strong> se establecen derechos y deberes de estudiantes, docentes y familias, incluyendo el uso responsable de dispositivos, el respeto, la no discriminación y el cumplimiento del manual.</p>
+          <p><strong>Rutas de atención:</strong> protocolos para situaciones tipo I, II y III, con mediación y debido proceso.</p>
+          <p><strong>Responsabilidad:</strong> la institución aplica medidas pedagógicas, correctivos y seguimiento conforme al manual.</p>
+          <details>
+            <summary>Ver texto completo copiado</summary>
+            <pre class="legal-full">Por la cual el Consejo Directivo aprueba y adopta ajustes al Manual de Convivencia Escolar de la Institución Educativa Avelino Saldarriaga para el año Lectivo 2025
+El Consejo Directivo de la Institución Educativa Avelino Saldarriaga, en uso de las atribuciones que le concede la Ley 115 de 1994, la Ley 715 de 2002 y el decreto 1860 de agosto 03 de 1994, el Decreto 1075 de 2015 y la Directiva Ministerial Nº 29 de 2010, Ley 1618 de 2.013 y su Decreto reglamentario 1421 de 2017.
+CONSIDERANDO:
+Que el presente Manual de Convivencia Escolar se rige bajo el siguiente marco jurídico:
+Constitución Política de Colombia.
+Ley 2025 del 23 de julio de 2020. Lineamientos para escuelas de padres.
+Sentencia de tutela No 240 de 26 de junio de 2018 (uso de celulares e información).
+Decreto 2383 de 2015 (SRPA).
+Decreto 1075 de 2015.
+Ley 1752 de 2015 (discriminación).
+Ley 1620 de 2013 y Decreto 1965 de 2013.
+Decreto 1377 de 2013.
+Ley 1482 de 2011 (racismo/discriminación).
+Decreto 1290 de 2009.
+Ley 1146 de 2007.
+Ley 1098 de 2006 (Infancia y Adolescencia).
+... (texto extenso entregado por la institución) ...
+COMUNIQUESE Y CUMPLASE
+Expedido en Itagüí, a los 03 días de julio de 2025
+CONSEJO DIRECTIVO
+</pre>
+          </details>
+        </div>
+      </div>
+    </div>
+    <div id="rememberModal" class="modal" hidden>
+      <div class="modal-content modal-small">
+        <h3>Guardar acceso</h3>
+        <p>Elige cómo quieres guardar tu acceso en este dispositivo.</p>
+        <label class="checkbox">
+          <input type="checkbox" id="rememberSession" />
+          Mantener sesión iniciada en este dispositivo
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" id="rememberBrowser" />
+          Permitir que el navegador autocompletar usuario y contraseña
+        </label>
+        <div class="actions-row">
+          <button id="rememberCancel" class="btn ghost" type="button">Ahora no</button>
+          <button id="rememberConfirm" class="btn" type="button">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <main class="container">
+      
+      <section id="authSection" class="grid-2">
+        <div class="card">
+          <h2>Registro</h2>
+          <form id="registerForm" class="form">
+            <input type="text" id="regNombre" placeholder="Nombre completo (mínimo 10 caracteres)" autocomplete="name" required />
+            <select id="regCurso" required>
+              <option value="">Curso</option>
+              <option>10-1</option>
+              <option>10-2</option>
+              <option>10-3</option>
+              <option>11-1</option>
+              <option>11-2</option>
+            </select>
+            <select id="regRol" required>
+              <option value="">Rol</option>
+              <option>Comprador</option>
+              <option>Vendedor</option>
+              <option>Ambos</option>
+            </select>
+            <input type="text" id="regContacto" placeholder="WhatsApp o Email" value="+57" autocomplete="email" required />
+            <input type="text" id="regVerify" placeholder="Código de verificación" required />
+            <input type="password" id="regAdminCode" placeholder="Código admin (opcional)" />
+            <input type="password" id="regPassword" placeholder="Contraseña" autocomplete="new-password" required />
+            <label class="checkbox">
+              <input type="checkbox" id="regAgree" required />
+              Acepto los acuerdos, la política de privacidad y las normas institucionales.
+            </label>
+            <button class="btn">Crear cuenta</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2>Login</h2>
+          <form id="loginForm" class="form">
+            <input type="text" id="loginNombre" placeholder="Nombre" autocomplete="username" required />
+            <input type="password" id="loginPassword" placeholder="Contraseña" autocomplete="current-password" required />
+            <button class="btn">Entrar</button>
+          </form>
+        </div>
+      </section>
+
+      
+      <section id="appSection" hidden>
+        <div class="grid-2">
+          <div class="card">
+            <h2>Productos populares</h2>
+            <div id="popularList" class="list"></div>
+          </div>
+          <div class="card">
+            <h2>Crear o editar producto</h2>
+            <form id="productForm" class="form">
+              <input type="hidden" id="prodId" />
+              <input type="text" id="prodNombre" placeholder="Nombre" required />
+              <input type="text" id="prodDescripcion" placeholder="Descripción" required />
+              <input type="number" id="prodPrecio" placeholder="Precio" min="1" required />
+              <input type="number" id="prodStock" placeholder="Stock" min="0" required />
+              <input type="file" id="prodImage" accept="image/*" />
+              <img id="prodPreview" class="preview" alt="Vista previa" hidden />
+              <button id="prodSubmit" class="btn">Guardar producto</button>
+              <button id="prodCancel" class="btn ghost" type="button">Cancelar edición</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Todos los productos</h2>
+          <div id="productsList" class="list"></div>
+        </div>
+
+        <div class="card">
+          <h2>Mis productos</h2>
+          <div id="myProductsList" class="list"></div>
+        </div>
+
+        <div class="card">
+          <h2>Comprobantes recientes</h2>
+          <div id="receiptsList" class="list"></div>
+          <button id="receiptsClearBtn" class="btn ghost small" type="button">Borrar comprobantes</button>
+        </div>
+
+        <div id="adminPanel" class="card" hidden>
+          <h2>Panel admin</h2>
+          <div id="adminCounts">Usuarios: 0 | Admins: 0</div>
+          <div id="adminCommissions">Comisiones: 0</div>
+          <h3>Códigos disponibles</h3>
+          <div id="adminInvites" class="list"></div>
+          <button id="addInvitesBtn" class="btn ghost small" type="button">Agregar 80 códigos</button>
+          <h3>Cargar saldo</h3>
+          <form id="creditForm" class="form">
+            <input type="text" id="creditCard" placeholder="Código de tarjeta (MD101AX39)" />
+            <input type="number" id="creditAmount" placeholder="Valor a cargar" min="1" />
+            <input type="text" id="creditNote" placeholder="Nota (opcional)" />
+            <button class="btn">Cargar saldo</button>
+          </form>
+          <h3>Historial de recargas</h3>
+          <div id="creditsList" class="list"></div>
+          <h3>Reinicio</h3>
+          <button id="resetBtn" class="btn ghost" type="button">Reiniciar TODO</button>
+          <h3>Promocionados activos</h3>
+          <div id="adminPromoted" class="list"></div>
+        </div>
+      </section>
+    </main>
+
+    
+    <footer class="footer">
+      <span>Proyecto escolar - Mercado Digital</span>
+    </footer>
+
+    <section class="legal container">
+      <div class="card">
+        <h2>Acuerdos, Normas y Política de Privacidad</h2>
+        <p><strong>Propósito educativo:</strong> Este mercado es un ejercicio escolar. Las transacciones se realizan con moneda ficticia y tienen fines pedagógicos.</p>
+        <p><strong>Normas institucionales:</strong> El uso de la plataforma debe respetar el Manual de Convivencia y el PEI de la institución. Se exige trato respetuoso, honestidad en las publicaciones y cumplimiento de las reglas del colegio.</p>
+        <button id="viewNormsBtn" class="btn ghost small" type="button">Ver normas</button>
+        <p><strong>Publicaciones permitidas:</strong> Se prohíbe ofrecer productos ilegales, peligrosos o que contradigan normas institucionales. La información del producto debe ser clara y verdadera (precio, stock y descripción). No se permite suplantación de identidad ni plagio de cuentas.</p>
+        <p><strong>Responsabilidad:</strong> La institución y el equipo del proyecto no se hacen responsables por acuerdos externos, entregas o conflictos entre estudiantes. Cualquier problema debe reportarse al docente responsable. El uso indebido puede implicar suspensión de la cuenta.</p>
+        <p><strong>Privacidad:</strong> Solo se almacenan datos básicos del usuario (nombre, curso, rol, contacto) y movimientos del mercado. No se usan para fines comerciales. Los administradores pueden ver estadísticas y recargas para control del proyecto.</p>
+        <p><strong>Contacto:</strong> El dato de contacto lo provee el vendedor para facilitar acuerdos de compra entre estudiantes.</p>
+      </div>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,5 @@
+backend/node_modules/
+backend/mercado.db
+frontend/.DS_Store
+.DS_Store
+*.log
