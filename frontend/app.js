@@ -67,6 +67,9 @@ let notifClearAt = null;
 let receiptClearAt = null;
 let currentImageData = "";
 
+const MAX_IMAGE_BYTES = 12 * 1024 * 1024;
+const MAX_IMAGE_DIM = 1600;
+
 
 function saveUser(user, remember = true) {
   currentUser = user;
@@ -320,23 +323,78 @@ if (toast) {
   });
 }
 
+async function compressImageToDataUrl(file) {
+  const img = new Image();
+  const dataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("No se pudo leer la imagen"));
+    reader.readAsDataURL(file);
+  });
+  img.src = dataUrl;
+  await new Promise((resolve, reject) => {
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+
+  let { width, height } = img;
+  const maxDim = Math.max(width, height);
+  if (maxDim > MAX_IMAGE_DIM) {
+    const scale = MAX_IMAGE_DIM / maxDim;
+    width = Math.round(width * scale);
+    height = Math.round(height * scale);
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, width, height);
+
+  let quality = 0.8;
+  let out = canvas.toDataURL("image/jpeg", quality);
+  while (out.length > MAX_IMAGE_BYTES * 1.37 && quality > 0.4) {
+    quality -= 0.1;
+    out = canvas.toDataURL("image/jpeg", quality);
+  }
+  return out;
+}
+
 if (prodImage) {
-  prodImage.addEventListener("change", () => {
+  prodImage.addEventListener("change", async () => {
     const file = prodImage.files && prodImage.files[0];
     if (!file) {
       currentImageData = "";
       if (prodPreview) prodPreview.hidden = true;
       return;
     }
-    const reader = new FileReader();
-    reader.onload = () => {
-      currentImageData = String(reader.result || "");
-      if (prodPreview) {
-        prodPreview.src = currentImageData;
-        prodPreview.hidden = false;
+    if (!file.type.startsWith("image/")) {
+      alert("El archivo debe ser una imagen");
+      prodImage.value = "";
+      return;
+    }
+
+    try {
+      if (file.size <= MAX_IMAGE_BYTES) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          currentImageData = String(reader.result || "");
+          if (prodPreview) {
+            prodPreview.src = currentImageData;
+            prodPreview.hidden = false;
+          }
+        };
+        reader.readAsDataURL(file);
+      } else {
+        currentImageData = await compressImageToDataUrl(file);
+        if (prodPreview) {
+          prodPreview.src = currentImageData;
+          prodPreview.hidden = false;
+        }
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      alert("No se pudo procesar la imagen");
+    }
   });
 }
 
