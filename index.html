@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zelestia Studios | Videojuegos con identidad propia</title>
+  <meta name="description" content="Zelestia Studios crea videojuegos con direccion artistica, mundos propios y una vision creativa enfocada en experiencias memorables.">
+  <meta name="theme-color" content="#080B11">
+
+  <link rel="icon" type="image/png" href="https://i.imgur.com/ne47ESf.png">
+  <link rel="apple-touch-icon" href="https://i.imgur.com/ne47ESf.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Zelestia Studios">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://zelestiastudios.com/">
+  <meta property="og:title" content="Zelestia Studios | Videojuegos con identidad propia">
+  <meta property="og:description" content="Empresa de desarrollo de videojuegos construyendo mundos con identidad artistica, vision estetica y universos memorables.">
+  <meta property="og:image" content="https://zelestiastudios.com/assets/og-card-v2.png">
+  <meta property="og:image:secure_url" content="https://zelestiastudios.com/assets/og-card-v2.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Banner de Zelestia Studios">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Zelestia Studios | Videojuegos con identidad propia">
+  <meta name="twitter:description" content="Videojuegos, universos creativos y postulaciones para formar parte del equipo.">
+  <meta name="twitter:image" content="https://zelestiastudios.com/assets/og-card-v2.png">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="cursor"></div>
+  <div id="cursor-trail"></div>
+  <canvas id="stars-canvas"></canvas>
+  <div id="cart-overlay"></div>
+  <div id="toast">Postulación enviada</div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">
+      <img src="https://i.imgur.com/ne47ESf.png" alt="Zelestia Studios"
+        style="height:96px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 14px rgba(91,200,245,0.7));">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="#game">Juego</a></li>
+      <li><a href="#team">Equipo</a></li>
+      <li><a href="#store">Tienda</a></li>
+      <li><a href="#vision">Visión</a></li>
+      <li><a href="#apply" class="nav-cta">Únete</a></li>
+    </ul>
+    <button id="cart-btn" aria-label="Carrito">
+      CART
+      <span id="cart-count">0</span>
+    </button>
+  </nav>
+
+  <!-- CART SIDEBAR -->
+  <div id="cart-sidebar">
+    <div class="cart-header">
+      <span class="cart-title">CARRITO</span>
+      <button class="cart-close" id="cart-close">×</button>
+    </div>
+    <div id="cart-items">
+      <div class="cart-empty">Tu carrito está vacío</div>
+    </div>
+    <div class="cart-totals" id="cart-totals" style="display:none;">
+      <div class="cart-total-row"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+      <div class="cart-grand"><span>Total</span><span id="cart-total-display">$0.00</span></div>
+      <button class="btn-checkout" onclick="checkout()">PROCEDER AL PAGO</button>
+      <p style="font-size:0.7rem;color:var(--gray-light);text-align:center;margin-top:12px;">Pagos procesados con Stripe - 100% seguro</p>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <h1 class="hero-title">
+      <span class="line1">ZELESTIA</span>
+      <span class="line2">STUDIOS</span>
+    </h1>
+    <p class="hero-sub">Construimos mundos con identidad artística, visión estética y universos memorables.</p>
+    <div class="hero-buttons">
+      <a href="#game" class="btn-primary">Ver Proyecto</a>
+      <a href="#apply" class="btn-secondary">Únete al equipo</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-text reveal">
+      <div class="section-label">Acerca de</div>
+      <h2 class="section-title">¿Qué es<br><span style="color:var(--sky)">Zelestia?</span></h2>
+      <p>Zelestia es una empresa creativa enfocada en desarrollar videojuegos con <strong>identidad artística fuerte</strong>, visión estética y universos memorables.</p>
+      <p>No buscamos crear contenido vacío o pasajero. Buscamos desarrollar <strong>experiencias con personalidad, emoción y una estética reconocible</strong>.</p>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">01</div>
+          <div class="stat-label">Juego en desarrollo</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">+</div>
+          <div class="stat-label">Ideas por construir</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Empresa creativa</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">IP</div>
+          <div class="stat-label">Universos propios</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual reveal">
+      <div class="about-hex">
+        <div class="hex-ring"></div>
+        <div class="hex-ring"></div>
+        <div class="hex-ring"></div>
+        <div class="hex-center">
+          <img src="https://i.imgur.com/ne47ESf.png" alt="Zelestia"
+            style="width:280px;height:auto;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 32px rgba(91,200,245,0.78));">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="team-header reveal">
+      <div class="section-label" style="justify-content:center;">El equipo</div>
+      <h2 class="section-title">Las personas<br><span style="color:var(--sky)">detrás del proyecto</span></h2>
+    </div>
+    <div class="team-grid">
+
+      <div class="team-card reveal">
+        <div class="team-avatar team-photo">
+          <img src="https://i.imgur.com/tkOo4eI.jpg" alt="Lautaro">
+        </div>
+        <div class="team-name">Lautaro</div>
+        <div class="team-role">Fundador & Director</div>
+        <div class="team-social">
+          <a href="https://www.tiktok.com/@zelestia.studios" class="social-link" title="TikTok" target="_blank" rel="noopener noreferrer">TK</a>
+        </div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-avatar team-photo">
+          <img src="https://i.imgur.com/lIKEwNb.jpg" alt="bonniies">
+        </div>
+        <div class="team-name">bonniies</div>
+        <div class="team-role">Desarrollador Web</div>
+        <div class="team-social">
+          <a href="https://www.tiktok.com/@amaracxz" class="social-link" title="TikTok" target="_blank" rel="noopener noreferrer">TK</a>
+        </div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-avatar team-photo">
+          <img src="https://i.imgur.com/IEp4glt.jpg" alt="Alberto">
+        </div>
+        <div class="team-name">Alberto</div>
+        <div class="team-role">Programador</div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-avatar">M</div>
+        <div class="team-name">Mar</div>
+        <div class="team-role">Ilustradora</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="game">
+    <div class="reveal">
+      <div class="game-tag"><div class="dot"></div> En Desarrollo</div>
+      <div class="game-title-block">
+        <div class="section-label">Proyecto principal</div>
+        <h2 class="game-title">Chrono Rift</h2>
+        <div class="game-subtitle">: Paradox</div>
+      </div>
+      <p class="game-desc">
+        Un MOBA con identidad artística propia donde cada héroe es una obra visual.
+        Chrono Rift es nuestra primera apuesta creativa: combates estratégicos en tiempo real,
+        una dirección de arte distintiva y un universo con lore profundo.
+      </p>
+      <div class="game-tags">
+        <span class="gtag">MOBA</span>
+        <span class="gtag">Multijugador</span>
+        <span class="gtag">Estrategia</span>
+        <span class="gtag">Acción</span>
+        <span class="gtag">PC</span>
+      </div>
+      <a href="#store" class="btn-primary">Ver en tienda</a>
+    </div>
+    <div class="game-visual reveal">
+      <div class="game-card-bg">
+        <canvas class="game-particles" id="game-particles"></canvas>
+        <div class="game-placeholder-logo">
+          <img src="https://i.imgur.com/zZihP0w.png" alt="Chrono Rift"
+            style="max-width:330px;width:82%;height:auto;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 38px rgba(91,200,245,0.78));">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORE -->
+  <section id="store">
+    <div class="store-header reveal">
+      <div class="section-label" style="justify-content:center;">Tienda</div>
+      <h2 class="section-title">Nuestros<br><span style="color:var(--sky)">Videojuegos</span></h2>
+      <p style="color:var(--gray-light);font-size:0.95rem;margin-top:16px;font-weight:300;">Adquiere acceso anticipado y apoya nuestros próximos lanzamientos</p>
+    </div>
+    <div class="store-grid">
+
+      <div class="store-card reveal">
+        <div class="store-img">
+          <div class="store-badge">No disponible</div>
+          <img src="https://i.imgur.com/zZihP0w.png" alt="Chrono Rift"
+            style="max-width:230px;width:76%;height:auto;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 28px rgba(91,200,245,0.72));position:relative;z-index:1;">
+        </div>
+        <div class="store-body">
+          <div class="store-title">Chrono Rift: Paradox</div>
+          <div class="store-genre">MOBA · Multijugador</div>
+          <div class="store-desc">Nuestro primer MOBA todavía está en desarrollo. De momento aparece como gratuito, pero aún no se puede descargar ni agregar al carrito.</div>
+          <div class="store-footer">
+            <div class="store-price">Gratis</div>
+            <button class="btn-cart" disabled>NO DISPONIBLE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="store-card reveal" style="opacity:0.5;pointer-events:none;">
+        <div class="store-img">
+          <div class="store-badge" style="background:rgba(107,107,133,0.2);border-color:var(--gray-light);color:var(--gray-light);">Próximamente</div>
+          <div style="font-family:'Orbitron',sans-serif;font-size:2.5rem;font-weight:900;color:var(--gray-light);">TBA</div>
+        </div>
+        <div class="store-body">
+          <div class="store-title">Próximo Juego</div>
+          <div class="store-genre">TBA · 2025</div>
+          <div class="store-desc">Nuestro segundo proyecto está en concepto. Síguenos en redes para ser el primero en enterarte.</div>
+          <div class="store-footer">
+            <div class="store-price" style="color:var(--gray-light);">TBA</div>
+            <button class="btn-cart" disabled>PRÓXIMAMENTE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="store-card reveal" style="opacity:0.5;pointer-events:none;">
+        <div class="store-img">
+          <div class="store-badge" style="background:rgba(107,107,133,0.2);border-color:var(--gray-light);color:var(--gray-light);">Próximamente</div>
+          <div style="font-family:'Orbitron',sans-serif;font-size:2.5rem;font-weight:900;color:var(--gray-light);">TBA</div>
+        </div>
+        <div class="store-body">
+          <div class="store-title">En Concepto</div>
+          <div class="store-genre">TBA · 2026</div>
+          <div class="store-desc">El futuro de Zelestia tiene más historias por contar. Mantente atento.</div>
+          <div class="store-footer">
+            <div class="store-price" style="color:var(--gray-light);">TBA</div>
+            <button class="btn-cart" disabled>PRÓXIMAMENTE</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section id="vision">
+    <div class="vision-header reveal">
+      <div class="section-label" style="justify-content:center;">Futuro</div>
+      <h2 class="section-title">Nuestra<br><span style="color:var(--sky)">Visión</span></h2>
+    </div>
+    <div class="vision-grid">
+      <div class="vision-card reveal">
+        <span class="vision-icon">01</span>
+        <h3>Identidad Artística</h3>
+        <p>Crear experiencias con personalidad propia, cuidando cada detalle visual, narrativo y estético para ofrecer trabajos con calidad y una dirección artística sólida.</p>
+      </div>
+      <div class="vision-card reveal">
+        <span class="vision-icon">02</span>
+        <h3>Universos Memorables</h3>
+        <p>Queremos construir un espacio donde las ideas puedan transformarse en universos que conecten con las personas de forma auténtica y diferente.</p>
+      </div>
+      <div class="vision-card reveal">
+        <span class="vision-icon">03</span>
+        <h3>Marca Reconocible</h3>
+        <p>Zelestia busca convertirse en una marca creativa de videojuegos reconocida por combinar lo artístico, lo emocional y lo conceptual en cada proyecto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY -->
+  <section id="apply">
+    <div class="apply-inner">
+      <div class="apply-header reveal">
+        <div class="section-label" style="justify-content:center;">Únete</div>
+        <h2 class="section-title">Forma parte de<br><span style="color:var(--sky)">Zelestia</span></h2>
+        <p style="color:var(--gray-light);font-size:0.95rem;margin-top:16px;font-weight:300;">Buscamos personas con talento, pasión y visión creativa.</p>
+      </div>
+
+      <div class="tabs reveal">
+        <button class="tab-btn active" onclick="switchTab('programador', this)">Programador</button>
+        <button class="tab-btn" onclick="switchTab('animador', this)">Animador</button>
+        <button class="tab-btn" onclick="switchTab('ilustrador', this)">Ilustrador</button>
+        <button class="tab-btn" onclick="switchTab('doblaje', this)">Doblaje de voz</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-programador">
+        <form onsubmit="submitApplication(event)">
+          <input type="hidden" name="Rol" value="Programador">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nombre completo</label>
+              <input type="text" name="Nombre" class="form-input" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" name="Correo" class="form-input" placeholder="tu@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lenguajes / Motores</label>
+              <input type="text" name="Lenguajes o motores" class="form-input" placeholder="Unity, Unreal, C#, Python...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Años de experiencia</label>
+              <select name="Experiencia" class="form-select">
+                <option>Principiante (0-1 años)</option>
+                <option>Intermedio (1-3 años)</option>
+                <option>Avanzado (3+ años)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">GitHub / Portfolio</label>
+              <input type="url" name="Portfolio" class="form-input" placeholder="https://github.com/...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Disponibilidad</label>
+              <select name="Disponibilidad" class="form-select">
+                <option>Tiempo parcial</option>
+                <option>Tiempo completo</option>
+                <option>Por proyecto</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">¿Por qué quieres unirte?</label>
+              <textarea name="Mensaje" class="form-textarea" placeholder="Cuéntanos sobre ti, tu motivación y qué puedes aportar..."></textarea>
+            </div>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn-primary">ENVIAR POSTULACIÓN</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab-panel" id="tab-animador">
+        <form onsubmit="submitApplication(event)">
+          <input type="hidden" name="Rol" value="Animador">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nombre completo</label>
+              <input type="text" name="Nombre" class="form-input" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" name="Correo" class="form-input" placeholder="tu@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Software que usas</label>
+              <input type="text" name="Software" class="form-input" placeholder="Blender, After Effects, Maya...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tipo de animación</label>
+              <select name="Tipo de animación" class="form-select">
+                <option>2D</option>
+                <option>3D</option>
+                <option>Motion Graphics</option>
+                <option>VFX</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Portfolio / Showreel</label>
+              <input type="url" name="Portfolio" class="form-input" placeholder="https://vimeo.com/... o YouTube...">
+            </div>
+            <div class="form-group full">
+              <label class="form-label">¿Por qué quieres unirte?</label>
+              <textarea name="Mensaje" class="form-textarea" placeholder="Cuéntanos sobre ti y tu estilo..."></textarea>
+            </div>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn-primary">ENVIAR POSTULACIÓN</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab-panel" id="tab-ilustrador">
+        <form onsubmit="submitApplication(event)">
+          <input type="hidden" name="Rol" value="Ilustrador">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nombre completo</label>
+              <input type="text" name="Nombre" class="form-input" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" name="Correo" class="form-input" placeholder="tu@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Estilo artístico</label>
+              <input type="text" name="Estilo artístico" class="form-input" placeholder="Pixel art, concept art, UI/UX...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Software principal</label>
+              <select name="Software principal" class="form-select">
+                <option>Photoshop</option>
+                <option>Illustrator</option>
+                <option>Procreate</option>
+                <option>Krita</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Portfolio</label>
+              <input type="url" name="Portfolio" class="form-input" placeholder="https://behance.net/... o ArtStation...">
+            </div>
+            <div class="form-group full">
+              <label class="form-label">¿Por qué quieres unirte?</label>
+              <textarea name="Mensaje" class="form-textarea" placeholder="Cuéntanos sobre tu visión artística..."></textarea>
+            </div>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn-primary">ENVIAR POSTULACIÓN</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab-panel" id="tab-doblaje">
+        <form onsubmit="submitApplication(event)">
+          <input type="hidden" name="Rol" value="Doblaje de voz">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nombre completo</label>
+              <input type="text" name="Nombre" class="form-input" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Correo electronico</label>
+              <input type="email" name="Correo" class="form-input" placeholder="tu@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Rango vocal / tipo de voz</label>
+              <input type="text" name="Rango vocal" class="form-input" placeholder="Grave, medio, agudo, juvenil, narrador...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Idiomas / acentos</label>
+              <input type="text" name="Idiomas o acentos" class="form-input" placeholder="Espanol neutro, ingles, acento especifico...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Experiencia</label>
+              <select name="Experiencia" class="form-select">
+                <option>Principiante</option>
+                <option>Intermedio</option>
+                <option>Avanzado</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Disponibilidad</label>
+              <select name="Disponibilidad" class="form-select">
+                <option>Tiempo parcial</option>
+                <option>Tiempo completo</option>
+                <option>Por proyecto</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Demo reel / prueba de voz</label>
+              <input type="url" name="Demo de voz" class="form-input" placeholder="https://drive.google.com/... o SoundCloud / YouTube / TikTok" required>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Por que quieres unirte?</label>
+              <textarea name="Mensaje" class="form-textarea" placeholder="Cuentanos sobre tu voz, experiencia y que tipo de personajes te interesan..."></textarea>
+            </div>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn-primary">ENVIAR POSTULACION</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy">
+    <div class="reveal">
+      <div class="section-label">Legal</div>
+      <h2 class="section-title" style="margin-bottom:40px;">Política de <span style="color:var(--sky)">Privacidad</span></h2>
+    </div>
+    <div class="privacy-box reveal">
+      <div class="privacy-section">
+        <h3>1. Responsable del tratamiento</h3>
+        <p>Zelestia Studios, empresa de desarrollo de videojuegos, es responsable del tratamiento de los datos personales recopilados a través de este sitio web.</p>
+      </div>
+      <div class="privacy-section">
+        <h3>2. Datos recopilados</h3>
+        <ul>
+          <li>Nombre completo y correo electrónico para postulaciones al equipo</li>
+          <li>Información de portfolio, disponibilidad, experiencia y mensaje de postulación</li>
+          <li>Datos de navegación anónimos para mejorar la experiencia del sitio</li>
+        </ul>
+      </div>
+      <div class="privacy-section">
+        <h3>3. Finalidad del tratamiento</h3>
+        <ul>
+          <li>Gestión de postulaciones y proceso de selección</li>
+          <li>Comunicaciones relacionadas con nuestros productos y servicios</li>
+          <li>Cumplimiento de obligaciones legales</li>
+        </ul>
+      </div>
+      <div class="privacy-section">
+        <h3>4. Propiedad intelectual</h3>
+        <p>Todos los contenidos de este sitio, incluyendo el nombre "Zelestia Studios", el logo corporativo, "Chrono Rift: Paradox", conceptos de juego, arte, código y textos, son propiedad exclusiva de Zelestia Studios y están protegidos por las leyes aplicables y tratados internacionales.</p>
+      </div>
+      <div class="privacy-section">
+        <h3>5. Contacto</h3>
+        <p>Para consultas relacionadas con postulaciones o datos personales, puedes escribir a zelestia.sts@gmail.com.</p>
+      </div>
+      <p style="font-size:0.78rem;color:var(--gray-light);margin-top:30px;">Última actualización: 2026. Zelestia Studios se reserva el derecho de actualizar esta política.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <img src="https://i.imgur.com/ne47ESf.png" alt="Zelestia Studios"
+        style="height:82px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 14px rgba(91,200,245,0.6));display:block;margin-bottom:16px;">
+      <p>Empresa de desarrollo de videojuegos construyendo mundos con identidad artística fuerte y universos memorables.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#game">Juego</a></li>
+        <li><a href="#team">Equipo</a></li>
+        <li><a href="#store">Tienda</a></li>
+        <li><a href="#vision">Visión</a></li>
+        <li><a href="#apply">Postularse</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Redes</h4>
+      <ul>
+        <li><a href="#">Twitter / X</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="https://www.tiktok.com/@zelestia.studios" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+        <li><a href="#privacy">Privacidad</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© 2026 Zelestia Studios. Todos los derechos reservados.</p>
+    <p style="color:var(--sky);">Hecho por Zelestia Studios</p>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

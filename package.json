@@ -1,0 +1,11 @@
+{
+  "name": "zelestia-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^3.0.0"
+  }
+}
